@@ -25,7 +25,8 @@
 	]);
 	*/
 
-	$user_document = $collection->findOne(array("uname"=>$_GET["uname"] ?? "", "pw"=>$_GET["pw"] ?? ""));
+	$query = array("uname"=>$_GET["uname"] ?? "", "pw"=>$_GET["pw"] ?? "");
+	$user_document = $collection->findOne($query);
 ?>
 <html>
 	<head>
@@ -39,6 +40,7 @@
 				echo "<h1>Profile</h1>";
 				echo "Username: " . $user_document["uname"] . "<br><br>";
 				echo "Credit Card: " . $user_document["credit_card"] . "<br><br>";
+				echo "Query used: " . json_encode($query) . "<br><br>";
 			}
 		?>
 	</body>
