@@ -45,7 +45,7 @@ import time
 from urllib.parse import urlparse, parse_qs
 
 hostName = "localhost"
-serverPort = 8080
+serverPort = 8081
 
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -70,16 +70,11 @@ class MyServer(BaseHTTPRequestHandler):
                 pw = parse_qs(parsed_url.query)['pw'][0]
                 print(f"Login attempt as user '{uname}' with password '{pw}'")
 
-                """
-                # Safe against injection attack:
-                matches = db.users.find({
-                    "uname": uname,
-                    "pw": pw
-                })
-                """
-
                 # Succeptible to injection attack: http://localhost:8080/profile.html?uname=Alice&pw=' || '1'=='1
-                matches = db.users.find({"$where": f"this.uname == '{uname}' && this.pw == '{pw}'"})
+                query = {"$where": f"this.uname == '{uname}' && this.pw == '{pw}'"}
+                # Better would be: query = {"uname": uname, "pw": pw}
+
+                matches = db.users.find(query)
                 
                 matches_list = list(matches)
                 if len(matches_list) == 0:
