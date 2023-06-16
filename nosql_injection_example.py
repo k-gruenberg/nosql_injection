@@ -63,14 +63,14 @@ class MyServer(BaseHTTPRequestHandler):
             self.wfile.write(bytes("</form>", "utf-8"))
             self.wfile.write(bytes("</body></html>", "utf-8"))
         elif self.path.startswith("/profile.html"):
-            # Parse URL (e.g. "http://localhost:8080/profile.html?uname=foo&pw=bar"):
+            # Parse URL (e.g. "http://localhost:8081/profile.html?uname=foo&pw=bar"):
             parsed_url = urlparse(self.path)
             try:
                 uname = parse_qs(parsed_url.query)['uname'][0]
                 pw = parse_qs(parsed_url.query)['pw'][0]
                 print(f"Login attempt as user '{uname}' with password '{pw}'")
 
-                # Succeptible to injection attack: http://localhost:8080/profile.html?uname=Alice&pw=' || '1'=='1
+                # Succeptible to injection attack: http://localhost:8081/profile.html?uname=Alice&pw=' || '1'=='1
                 query = {"$where": f"this.uname == '{uname}' && this.pw == '{pw}'"}
                 # Better would be: query = {"uname": uname, "pw": pw}
 
