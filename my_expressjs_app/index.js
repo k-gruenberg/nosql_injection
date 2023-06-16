@@ -14,7 +14,7 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-  res.send('req.query.user: ' + JSON.stringify(req.query.user) + '<br>req.query.password: ' + JSON.stringify(req.query.password))
+  res.send('req.query.uname: ' + JSON.stringify(req.query.uname) + '<br>req.query.pw: ' + JSON.stringify(req.query.pw))
 })
 
 app.listen(port, () => {
